@@ -11,7 +11,7 @@ int nrequests = 0;
 bool setupflag = false;
 bool requestflag = false;
 
-//------------------------------------Client----------------------------------------//>
+//------------------------------------Client----------------------------------------//
 void clientSetup() {
   // We start by connecting to a WiFi network
 
@@ -225,13 +225,15 @@ void runServer() {
 /* CLIENT CONFIG USAGE EXAMPLE
 void setup() {
     Serial.begin(115200);
+      clientSetup();
   delay(10);
 }
 void loop() {
-  clientSetup();
+
   connServer();
   delay(5000);
-}*/
+}
+*/
 
 /* SERVER CONFIG USAGE EXAMPLE
 void setup() {

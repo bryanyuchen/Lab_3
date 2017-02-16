@@ -8,6 +8,7 @@ This system would have three main interfaces: User-application, application-serv
 
 ## Bill of Materials
 
+--- | --- 
 -ESP8266 12E Development Board |
 -ESP 12E Motor Shield  |
 -FS90 Micro 9g servo  |

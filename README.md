@@ -4,7 +4,7 @@
 
 Because all of our Lab 2 musical instruments were along the lines of percussive instruments, that make sounds by hitting objects, we decided to incorporate them together as a band by having each instruments play a different beat to form interesting rhythms together. Instead of using objects to beat a surface, we decided to use the sounds of the servo to generate a beat. Thus, each servo would activate and deactivate to make a sound, in different rhythms from each other but at the same tempo, in order to achieve the goal of forming a “jam band”.
 
-This system would have three main interfaces: User-application, application-servo and servo-servo/synchronization. I took charge of writing the User-application interface, which involves the web server backend. Jack took charge of the user-application interface, which involves translating commands from the user interface into servo movements, and Justin developed the MCU-MCU communication, which is done through light sensors (described in much more detail in his poster). In addition, Jack developed a method to use the vibration sensor to act as an on/off switch for the whole system, that responds to the user tapping the sensor.
+This system would have three main interfaces: User-application, application-servo and servo-servo/synchronization. I took charge of writing the User-application interface, which involves the web server backend. Jack took charge of the user-application interface, which involves translating commands from the user interface into servo movements, and Justin developed the MCU-MCU communication, which is done through light sensors. In addition, Jack developed a method to use the vibration sensor to act as an on/off switch for the whole system, that responds to the user tapping the sensor.
 
 ## Bill of Materials
 
@@ -36,6 +36,50 @@ When an LED light connected to the face of the LDR is turned on, the resistance 
 When the vibration sensor is shaken, the component’s resistance increases such that a voltage logic of 0 is read on the digital pin of the MCU. When no vibration is detected, the component acts as an effective short, which results in a voltage logic of 1 being read on the digital pin of the MCU. We initialized a state machine-like system where reading the voltage logic of 0 will cause the system to switch between a sleep mode, and an active mode (in which the server is activated), thereby utilizing the vibration sensor as an on/off switch. Since the vibration sensor is not precise enough to measure tightly-packed discrete changes in states (as the vibrations take a non-negligible time to die off), we decided to use it as an on/off switch as we did not anticipate needing to turn it on and off repeatedly in a short amount of time.
 
 ### Tables and Figures
+
+Vibration Sensor Data State: 0/1 | Tap: Yes/No | Time (ms)
+--- | --- | ---
+0 | No | 0
+1 | Yes | 10
+1
+No
+20
+0
+No
+30
+0
+No
+40
+1
+No
+50
+0
+No
+60
+1
+No
+70
+0
+No
+80
+1
+No
+90
+1
+No
+100
+1
+No
+110
+1
+No
+120
+1
+No
+130
+1
+No
+140
 
 
 Table 1: As evidenced by the instability of the vibration sensor for several milliseconds after a tap, we needed to use a delay to prevent input from being read on the pin to avoid the transient state. With the delay acting as an effective ignore signal, we were able to more reliably use the vibration sensor as a switch.

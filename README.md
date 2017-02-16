@@ -8,9 +8,9 @@ This system would have three main interfaces: User-application, application-serv
 
 ## Bill of Materials
 
--ESP8266 12E Development Board 
--ESP 12E Motor Shield 
--FS90 Micro 9g servo 
+-ESP8266 12E Development Board |
+-ESP 12E Motor Shield  |
+-FS90 Micro 9g servo  |
 -Jumper cables (included with the servos) 
 -Mini-usb cables
 -Light-dependent resistors
@@ -23,6 +23,7 @@ This system would have three main interfaces: User-application, application-serv
 ![Settings Window](https://raw.githubusercontent.com/bryanyuchen/Lab_3/master/image1.png)
 
           Picture(a):  Wire connect individual                          Picture(b): Wire connect together
+	  (Additional images are included in the repo)
 
 ![Settings Window](https://raw.githubusercontent.com/bryanyuchen/Lab_3/master/image2.png)
 

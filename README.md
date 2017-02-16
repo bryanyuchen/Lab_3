@@ -8,15 +8,22 @@ This system would have three main interfaces: User-application, application-serv
 
 ## Bill of Materials
 
---- | --- 
--ESP8266 12E Development Board |
--ESP 12E Motor Shield  |
--FS90 Micro 9g servo  |
+-ESP8266 12E Development Board 
+
+-ESP 12E Motor Shield  
+
+-FS90 Micro 9g servo  
+
 -Jumper cables (included with the servos) 
+
 -Mini-usb cables
+
 -Light-dependent resistors
+
 -Vibration sensors
+
 -50Ohm, 330Ohm, 10kOhm resistors
+
 -Electrical tape
 
 ## Wiring Schematic
@@ -91,5 +98,7 @@ alt="Lab 3 Demo" width="240" height="180" border="10" /></a>
 https://www.youtube.com/watch?v=DMyxoPTLQOk
 
 0:01 - initial shake to wake the system from sleep mode to sequence one
+
 0:10 - transition from sequence one to sequence two
+
 0:20 - transition from sequence two to sequence three

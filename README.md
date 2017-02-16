@@ -82,6 +82,10 @@ Operation
 	
 ## Demonstration 
 
+<a href="http://www.youtube.com/watch?feature=player_embedded&v=DMyxoPTLQOk
+" target="_blank"><img src="http://img.youtube.com/vi/DMyxoPTLQOk/0.jpg" 
+alt="Lab 3 Demo" width="240" height="180" border="10" /></a>
+
 https://www.youtube.com/watch?v=DMyxoPTLQOk
 
 0:01 - initial shake to wake the system from sleep mode to sequence one

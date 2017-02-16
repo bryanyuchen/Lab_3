@@ -1,23 +1,82 @@
 
-
 #include <ESP8266WiFi.h>
-
 WiFiServer server(80); //Initialize the server on Port 80
 const short int LED_PIN = 16;//GPIO16
 String message = "Default";
 String prevmsg = "Default";
-const char* ssid_client_1     = "Hello_IoT2";
-const char* password_client_1 = "12345678";
-const char* ssid_client_2     = "Hello_IoT3";
-const char* password_client_2 = "12345678";
+const char* ssid     = "TeamShaggy1";
+const char* password = "12345678";
 const char* host = "192.168.4.1";
+int nrequests = 0;
+bool setupflag = false;
 bool requestflag = false;
 
-void setup() {
-  Serial.begin(115200);
-  delay(10);
+//------------------------------------Client----------------------------------------//>
+void clientSetup() {
+  // We start by connecting to a WiFi network
+
+  Serial.println();
+  Serial.println();
+  Serial.print("Connecting to ");
+  Serial.println(ssid);
+  
+  /* Explicitly set the ESP8266 to be a WiFi-client, otherwise, it by default,
+     would try to act as both a client and an access-point and could cause
+     network-issues with your other WiFi-devices on your WiFi-network. */
+  WiFi.mode(WIFI_STA);
+  WiFi.begin(ssid, password);
+  
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(500);
+    Serial.print(".");
   }
 
+  Serial.println("");
+  Serial.println("WiFi connected");  
+  Serial.println("IP address: ");
+  Serial.println(WiFi.localIP());
+}
+
+void connServer(){
+  Serial.print("connecting to ");
+  Serial.println(host);
+  
+  // Use WiFiClient class to create TCP connections
+  WiFiClient client;
+  const int httpPort = 80;
+  if (!client.connect(host, httpPort)) {
+    Serial.println("connection failed");
+    return;
+  }
+  
+  // This will send the request to the server
+  client.print(String("GET ") + "/SEQ HTTP/1.1");
+  unsigned long timeout = millis();
+  while (client.available() == 0) {
+    if (millis() - timeout > 5000) {
+      Serial.println(">>> Client Timeout !");
+      client.stop();
+      return;
+    }
+  }
+  
+  // Read all the lines of the reply from server and print them to Serial
+  while(client.available()){
+    message = client.readStringUntil('\r');
+    Serial.print(message);
+  }
+  
+  Serial.println();
+  Serial.println("closing connection");
+}
+void runClient() {
+  clientSetup();
+  connServer();
+  delay(500);
+}
+//------------------------------------Client----------------------------------------//
+
+//------------------------------------Server----------------------------------------//
 void blinkLED (int ntimes) {
   for (int a = 0; a < ntimes; a++) {
   digitalWrite(LED_PIN, HIGH); 
@@ -27,16 +86,18 @@ void blinkLED (int ntimes) {
   }
   digitalWrite(LED_PIN, HIGH);
 }
+
 void configureServer() {
   // Configure web server
   WiFi.mode(WIFI_AP); //Our ESP8266-12E is an AccessPoint
-  WiFi.softAP("Hello_IoT1", "12345678"); // Provide the (SSID, password); .
+  WiFi.softAP("TeamShaggy1", "12345678"); // Provide the (SSID, password); .
   server.begin(); // Start the HTTP Server
   //Looking under the hood
   IPAddress HTTPS_ServerIP= WiFi.softAPIP(); // Obtain the IP of the Server
   Serial.print("Server IP is: "); // Print the IP to the monitor window
   Serial.println(HTTPS_ServerIP);
   pinMode(LED_PIN, OUTPUT); //GPIO16 is an OUTPUT pin;
+  setupflag = true;
 }
 
 void startServer(){
@@ -82,7 +143,18 @@ else if (request.indexOf("/Sequence3") != -1){
 if (message != prevmsg) {
     requestflag = true;
   }
+else if (request.indexOf("/SEQ") != -1 && requestflag) {
+  client.flush();
+  client.print(message);
+  delay(1);
+  Serial.println("Client Disconnected");
+  nrequests++;
+  return;
+}
 prevmsg = message;
+if (nrequests == 2) {
+  requestflag = false;
+}
 Serial.print("Playing ");
 Serial.println(message);
   
@@ -91,16 +163,16 @@ client.flush(); //clear previous info in the stream
 client.print(s); // Send the response to the client
 
 delay(1);
-Serial.println("Client disonnected"); //Looking under the hood
+Serial.println("Client disconnected"); //Looking under the hood
 }
 
-void startClient(char* ssid, char* pass){
+void startClient(const char* ssid, const char* pass){
   // We start by connecting to a WiFi network
   Serial.print("Connecting to ");
   Serial.println(ssid);
 
   WiFi.mode(WIFI_STA);
-  WiFi.begin(ssid, pass);
+  WiFi.begin("Not Your Network", "12345678");
   
   while (WiFi.status() != WL_CONNECTED) {
     delay(500);
@@ -143,16 +215,20 @@ void startClient(char* ssid, char* pass){
   requestflag = false;
 }
 
-void loop() {
+void runServer() {
+  if (!setupflag) {
   configureServer();
-  while (requestflag == false) {
-  startServer();
-  delay(1000);
   }
-  delay(300);
-  Serial.println("Connecting to Client");
-  //startClient(ssid_client_1, password_client_1);
-  //startClient(ssid_client_2, password_client_2);
-  requestflag = false;
+  startServer();
 }
+//------------------------------------Server----------------------------------------//
 
+void setup() {
+    Serial.begin(115200);
+  delay(10);
+}
+void loop() {
+  clientSetup();
+  connServer();
+  delay(5000);
+}

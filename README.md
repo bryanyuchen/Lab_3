@@ -2,7 +2,7 @@
 
 ## Introduction
 
-	Because all of our Lab 2 musical instruments were along the lines of percussive instruments, that make sounds by hitting objects, we decided to incorporate them together as a band by having each instruments play a different beat to form interesting rhythms together. Instead of using objects to beat a surface, we decided to use the sounds of the servo to generate a beat. Thus, each servo would activate and deactivate to make a sound, in different rhythms from each other but at the same tempo, in order to achieve the goal of forming a “jam band”.
+Because all of our Lab 2 musical instruments were along the lines of percussive instruments, that make sounds by hitting objects, we decided to incorporate them together as a band by having each instruments play a different beat to form interesting rhythms together. Instead of using objects to beat a surface, we decided to use the sounds of the servo to generate a beat. Thus, each servo would activate and deactivate to make a sound, in different rhythms from each other but at the same tempo, in order to achieve the goal of forming a “jam band”.
 
 This system would have three main interfaces: User-application, application-servo and servo-servo/synchronization. I took charge of writing the User-application interface, which involves the web server backend. Jack took charge of the user-application interface, which involves translating commands from the user interface into servo movements, and Justin developed the MCU-MCU communication, which is done through light sensors (described in much more detail in his poster). In addition, Jack developed a method to use the vibration sensor to act as an on/off switch for the whole system, that responds to the user tapping the sensor.
 
@@ -18,11 +18,15 @@ This system would have three main interfaces: User-application, application-serv
 -50Ohm, 330Ohm, 10kOhm resistors
 -Electrical tape
 
-Wiring Schematic
+## Wiring Schematic
+
+![Settings Window](https://raw.githubusercontent.com/bryanyuchen/Lab_3/master/image1.png)
 
           Picture(a):  Wire connect individual                          Picture(b): Wire connect together
 
-## Circuit Schematic: Resonator circuit on the left, LDR/LED combination on the right.
+![Settings Window](https://raw.githubusercontent.com/bryanyuchen/Lab_3/master/image2.png)
+
+	Circuit Schematic: Resonator circuit on the left, LDR/LED combination on the right.
 
 ## Sensing:
 ### Light-Dependent Resistors: 
@@ -40,12 +44,14 @@ Table 1: As evidenced by the instability of the vibration sensor for several mil
 Table 2: There is a slight delay in the response between the LDR and LED, but as the states are in the 10s of milliseconds, it is all but unnoticeable. In contrast with the vibration sensor, the LDR is much more precise and easily controlled by the on/off state of the LED.
 
 ## Multi-robot Collaboration
-	Initially, we planned to use the vibration sensor to pick up sound signals when each instrument plays a beat; however, we found that this would incur delays that would throw the system out of sync. Therefore, we decided to go with light sensing technology - LDR’s. Each robotic instrument is connected through the LED/LDR junctions. When one servo plays a beat, it simultaneously flashes an LED at the LDR of the next servo, thus triggering the next servo in the sequence to commence its own rhythmic sequence. That second servo will then signal servo 3 via LED and LDR to propagate the rhythm down the chain. Each successive machine in the chain plays the designated rhythm twice as fast as the previous machine.
+
+Initially, we planned to use the vibration sensor to pick up sound signals when each instrument plays a beat; however, we found that this would incur delays that would throw the system out of sync. Therefore, we decided to go with light sensing technology - LDR’s. Each robotic instrument is connected through the LED/LDR junctions. When one servo plays a beat, it simultaneously flashes an LED at the LDR of the next servo, thus triggering the next servo in the sequence to commence its own rhythmic sequence. That second servo will then signal servo 3 via LED and LDR to propagate the rhythm down the chain. Each successive machine in the chain plays the designated rhythm twice as fast as the previous machine.
 
 ## User Interface
   The user-application interface consists of an HTML webpage that takes commands from a user. There are buttons for the user to send three types of commands, enumerated ‘sequence 1’, ‘sequence 2’ and ‘sequence 3’ that direct the system to play three different rhythmic sequences. In addition, each time the user sends a command, the onboard LED will flash 1,2, or 3 times according to the sequence number pressed.
 Operation
 	To operate this system, the user has access to two controls: the webpage user interface, and the vibration sensor, which acts as the on-off switch for the system. To use the vibration sensor, the user simply taps it to switch the system off, and then again to switch the system back on. For the web page, usage is done by pressing on the three buttons of the interface to play sequence 1, 2 or 3. These sequences are translated into commands to the system in order to play 1 of 3 default rhythms. 
+	
 ## Demonstration 
 
 https://www.youtube.com/watch?v=DMyxoPTLQOk

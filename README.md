@@ -1,4 +1,5 @@
-# Lab 3 - Team Shaggy (Bryan Chen, Justin Su, Zhengming (Jack) Chen)
+# Lab 3 - Team Shaggy 
+(Bryan Chen, Justin Su, Zhengming (Jack) Chen)
 
 ## Introduction
 

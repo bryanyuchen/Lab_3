@@ -222,7 +222,7 @@ void runServer() {
   startServer();
 }
 //------------------------------------Server----------------------------------------//
-
+/* CLIENT CONFIG USAGE EXAMPLE
 void setup() {
     Serial.begin(115200);
   delay(10);
@@ -231,4 +231,16 @@ void loop() {
   clientSetup();
   connServer();
   delay(5000);
+}*/
+
+/* SERVER CONFIG USAGE EXAMPLE
+void setup() {
+    Serial.begin(115200);
+  delay(10);
 }
+void loop() {
+  if (!setupflag) {
+  configureServer();
+  }
+  startServer();
+}*/

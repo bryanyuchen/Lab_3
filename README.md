@@ -41,49 +41,33 @@ Vibration Sensor Data State: 0/1 | Tap: Yes/No | Time (ms)
 --- | --- | ---
 0 | No | 0
 1 | Yes | 10
-1
-No
-20
-0
-No
-30
-0
-No
-40
-1
-No
-50
-0
-No
-60
-1
-No
-70
-0
-No
-80
-1
-No
-90
-1
-No
-100
-1
-No
-110
-1
-No
-120
-1
-No
-130
-1
-No
-140
-
+1 | No | 20
+0 | No | 30
+0 | No | 40
+1 | No | 50
+0 | No | 60
+1 | No | 70
+0 | No | 80
+1 | No | 90
+1 | No | 100
+1 | No | 110
+1 | No | 120
+1 | No | 130
+1 | No | 140
 
 Table 1: As evidenced by the instability of the vibration sensor for several milliseconds after a tap, we needed to use a delay to prevent input from being read on the pin to avoid the transient state. With the delay acting as an effective ignore signal, we were able to more reliably use the vibration sensor as a switch.
 
+
+LDR State: 0/1 | LED State: 0/1 | Time (ms)
+--- | --- | ---
+0 | 0 | 0
+0 | 0 | 10
+0 | 1 | 20
+1 | 0 | 30
+0 | 1 | 40
+1 | 1 | 50
+1 | 1 | 60
+1 | 0 | 70
 
 Table 2: There is a slight delay in the response between the LDR and LED, but as the states are in the 10s of milliseconds, it is all but unnoticeable. In contrast with the vibration sensor, the LDR is much more precise and easily controlled by the on/off state of the LED.
 
